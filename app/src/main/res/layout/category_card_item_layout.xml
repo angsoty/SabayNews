@@ -7,31 +7,37 @@
 
     <TextView
         android:id="@+id/txtCategoryName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="318dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
         android:text="Title"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/txtSeeMore"
-        app:layout_constraintHorizontal_bias="0.004"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewArticle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtSeeMore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="82dp"
+        android:layout_width="63dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
         android:text="មើលបន្ថែម"
         android:textColorLink="#E91E63"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewArticle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/txtCategoryName"
+        app:layout_constraintVertical_bias="0.125" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewArticle"
-        android:layout_width="401dp"
-        android:layout_height="602dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="128dp" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCategoryName" />
 </androidx.constraintlayout.widget.ConstraintLayout>
