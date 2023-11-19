@@ -15,4 +15,6 @@ public interface APIInterface {
     Call<HomeResponse> getDataInHomePage();
     @GET("/StockServerApi/api/public/cms/article/category/{id}")
     Call<BaseResponse<List<ArticlesItem>>> getAllArticleByCategoryId(@Path("id") int id);
+    @GET("/StockServerApi/api/public/cms/article/{id}")
+    Call<BaseResponse<ArticlesItem>> getArticleById(@Path("id") int id);
 }

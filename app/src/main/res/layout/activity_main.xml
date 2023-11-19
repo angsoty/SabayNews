@@ -10,11 +10,6 @@
        android:id="@+id/recylerViewCategory"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />
-    <ProgressBar
-        android:visibility="gone"
-        android:layout_gravity="center"
-        android:id="@+id/Progressbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <include layout="@layout/progress_bar_layout" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

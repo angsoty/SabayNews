@@ -1,6 +1,7 @@
 package com.example.sabaynews.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sabaynews.R;
 import com.example.sabaynews.models.CategoriesItem;
+import com.example.sabaynews.uis.ListArticleByCategoryIdActivity;
 
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>{
-    private List<CategoriesItem> categoriesItemList;
+    private List<CategoriesItem> categoriesItems;
     private Context context;
 
 
-    public CategoryAdapter(List<CategoriesItem> categoriesItemList, Context context) {
-        this.categoriesItemList = categoriesItemList;
+    public CategoryAdapter(List<CategoriesItem> categoriesItems, Context context) {
+        this.categoriesItems = categoriesItems;
         this.context = context;
     }
 
@@ -33,7 +35,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
-        CategoriesItem item = categoriesItemList.get(position);
+        CategoriesItem item = categoriesItems.get(position);
         if (!item.getArticles().isEmpty())
         {
             ArticleAdapter articleAdapter = new ArticleAdapter(item.getArticles(),context);
@@ -45,11 +47,21 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         {
             holder.name.setText(item.getName());
         }
+        holder.more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ListArticleByCategoryIdActivity.class);
+                intent.putExtra("ID",item.getId());
+                intent.putExtra("Name",item.getName());
+                context.startActivity(intent);
+
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return categoriesItemList.size();
+        return categoriesItems.size();
     }
 
     public static class CategoryViewHolder extends RecyclerView.ViewHolder{
@@ -58,7 +70,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.txtCategoryName);
-            more = itemView.findViewById((R.id.txtArticleTitle));
+            more = itemView.findViewById((R.id.txtSeeMore));
             recyclerView = itemView.findViewById(R.id.recyclerViewArticle);
         }
     }

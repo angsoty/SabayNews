@@ -1,13 +1,11 @@
 package com.example.sabaynews;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.example.sabaynews.API.APIClient;
 import com.example.sabaynews.Interface.APIInterface;
@@ -33,8 +31,9 @@ public class MainActivity extends BaseActivity {
     }
     private void initView(){
         recyclerView = findViewById(R.id.recylerViewCategory);
-        progressBar = findViewById(R.id.Progressbar);
+        progressBar = findViewById(R.id.progressBar);
         apiInterface = APIClient.getClient().create(APIInterface.class);
+        progressBar.setVisibility(View.VISIBLE);
         apiInterface.getDataInHomePage().enqueue(new Callback<HomeResponse>() {
             @Override
             public void onResponse(Call<HomeResponse> call, Response<HomeResponse> response) {
