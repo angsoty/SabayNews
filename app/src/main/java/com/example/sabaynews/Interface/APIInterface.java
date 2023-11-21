@@ -4,6 +4,8 @@ import com.example.sabaynews.models.ArticlesItem;
 import com.example.sabaynews.models.BaseResponse;
 import com.example.sabaynews.models.CategoriesItem;
 import com.example.sabaynews.models.HomeResponse;
+import com.example.sabaynews.models.LoginRequest;
+import com.example.sabaynews.models.LoginResponse;
 
 import java.util.List;
 
@@ -26,6 +28,8 @@ public interface APIInterface {
     Call<BaseResponse<String>> createArticle(@Body ArticlesItem req);
     @POST("/StockServerApi/api/public/cms/article/update")
     Call<BaseResponse<String>> updateArticle(@Body ArticlesItem req);
+    @POST("/StockServerApi/api/oauth/token")
+    Call<LoginResponse> login(@Body LoginRequest req);
 
 
 }

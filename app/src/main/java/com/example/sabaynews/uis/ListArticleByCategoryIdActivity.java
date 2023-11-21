@@ -1,7 +1,6 @@
 package com.example.sabaynews.uis;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +15,7 @@ import com.example.sabaynews.API.APIClient;
 import com.example.sabaynews.Interface.APIInterface;
 import com.example.sabaynews.R;
 import com.example.sabaynews.adapter.ArticleAdapter;
+import com.example.sabaynews.app.BaseActivity;
 import com.example.sabaynews.models.ArticlesItem;
 import com.example.sabaynews.models.BaseResponse;
 
@@ -25,7 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListArticleByCategoryIdActivity extends AppCompatActivity {
+public class ListArticleByCategoryIdActivity extends BaseActivity {
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private ArticleAdapter articleAdapter;

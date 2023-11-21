@@ -6,36 +6,83 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/colorprimary">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="139dp"
+                    android:layout_height="23dp"
+                    android:layout_marginTop="19dp"
+                    android:layout_marginBottom="22dp"
+                    android:text="SabayNews"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.5" />
+
+                <ImageView
+                    android:id="@+id/ivlogout"
+                    android:layout_width="71dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="68dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="20dp"
+                    android:src="@drawable/baseline_exit_to_app_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.423" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TextSizeCheck">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recylerViewCategory"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_anchorGravity="center">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <include layout="@layout/progress_bar_layout" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </LinearLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         app:backgroundTint="@color/colorprimary"
-        app:layout_anchor="@+id/swipeRefreshLayout"
+        app:layout_anchor="@+id/linearLayout"
         app:layout_anchorGravity="end|bottom"
         app:srcCompat="@drawable/baseline_format_list_bulleted_24" />
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="TextSizeCheck">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recylerViewCategory"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_anchorGravity="center">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <include layout="@layout/progress_bar_layout" />
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

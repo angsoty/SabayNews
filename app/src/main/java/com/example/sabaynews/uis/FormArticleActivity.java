@@ -1,7 +1,7 @@
 package com.example.sabaynews.uis;
 
-import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,10 +12,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.example.sabaynews.API.APIClient;
 import com.example.sabaynews.Interface.APIInterface;
 import com.example.sabaynews.R;
 import com.example.sabaynews.adapter.CategoryBaseAdapter;
+import com.example.sabaynews.app.BaseActivity;
 import com.example.sabaynews.models.ArticlesItem;
 import com.example.sabaynews.models.BaseResponse;
 import com.example.sabaynews.models.CategoriesItem;
@@ -27,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FormArticleActivity extends AppCompatActivity {
+public class FormArticleActivity extends BaseActivity {
     private  CategoryBaseAdapter categoryBaseAdapter;
     private Spinner spinnerCategory;
     private APIInterface apiInterface;
@@ -46,21 +49,18 @@ public class FormArticleActivity extends AppCompatActivity {
         getAllCategory();
 
 
-        create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(titleArt.getText().toString().equals(""))
-                {
-                    Toast.makeText(FormArticleActivity.this,"Please enterr title",Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if(desc.getText().toString().equals(""))
-                {
-                    Toast.makeText(FormArticleActivity.this,"Please enterr DESC",Toast.LENGTH_LONG).show();
-                    return;
-                }
-                createAndUpdate();
+        create.setOnClickListener(v -> {
+            if(titleArt.getText().toString().equals(""))
+            {
+                Toast.makeText(FormArticleActivity.this,"Please enterr title",Toast.LENGTH_LONG).show();
+                return;
             }
+            if(desc.getText().toString().equals(""))
+            {
+                Toast.makeText(FormArticleActivity.this,"Please enterr DESC",Toast.LENGTH_LONG).show();
+                return;
+            }
+            createAndUpdate();
         });
 
     }
@@ -74,29 +74,30 @@ public class FormArticleActivity extends AppCompatActivity {
         {
             apiInterface.updateArticle(articlesItem).enqueue(new Callback<BaseResponse<String>>() {
                 @Override
-                public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                public void onResponse(@NonNull Call<BaseResponse<String>> call, @NonNull Response<BaseResponse<String>> response) {
                     onBackPressed();
                 }
 
                 @Override
-                public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                public void onFailure(@NonNull Call<BaseResponse<String>> call, @NonNull Throwable t) {
                     Toast.makeText(FormArticleActivity.this," "+ t.getMessage(),Toast.LENGTH_LONG).show();
                 }
             });
         }else {
             apiInterface.createArticle(articlesItem).enqueue(new Callback<BaseResponse<String>>() {
                 @Override
-                public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                public void onResponse(@NonNull Call<BaseResponse<String>> call, @NonNull Response<BaseResponse<String>> response) {
                     onBackPressed();
                 }
 
                 @Override
-                public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                public void onFailure(@NonNull Call<BaseResponse<String>> call, @NonNull Throwable t) {
                     Toast.makeText(FormArticleActivity.this," "+ t.getMessage(),Toast.LENGTH_LONG).show();
                 }
             });
         }
     }
+    @SuppressLint("SetTextI18n")
     public void initView(){
         titleArt =findViewById(R.id.editTitle);
         desc =findViewById(R.id.txtDesc);
@@ -112,7 +113,8 @@ public class FormArticleActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         apiInterface.getAllCategories().enqueue(new Callback<BaseResponse<List<CategoriesItem>>>() {
             @Override
-            public void onResponse(Call<BaseResponse<List<CategoriesItem>>> call, Response<BaseResponse<List<CategoriesItem>>> response) {
+            public void onResponse(@NonNull Call<BaseResponse<List<CategoriesItem>>> call, @NonNull Response<BaseResponse<List<CategoriesItem>>> response) {
+                assert response.body() != null;
                 categoriesItem= response.body().getData().get(0);
                 categoriesItemList =response.body().getData();
                 categoryBaseAdapter = new CategoryBaseAdapter(response.body().getData(),FormArticleActivity.this);
@@ -133,11 +135,12 @@ public class FormArticleActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<List<CategoriesItem>>> call, Throwable t) {
+            public void onFailure(@NonNull Call<BaseResponse<List<CategoriesItem>>> call, @NonNull Throwable t) {
                 progressBar.setVisibility(View.GONE);
             }
         });
     }
+    @SuppressLint("SetTextI18n")
     public void getArticleById(){
         Intent intent =getIntent();
         int id=intent.getIntExtra("ID",0);
@@ -149,7 +152,8 @@ public class FormArticleActivity extends AppCompatActivity {
             create.setText("Update");
             apiInterface.getArticleById(id).enqueue(new Callback<BaseResponse<ArticlesItem>>() {
                 @Override
-                public void onResponse(Call<BaseResponse<ArticlesItem>> call, Response<BaseResponse<ArticlesItem>> response) {
+                public void onResponse(@NonNull Call<BaseResponse<ArticlesItem>> call, @NonNull Response<BaseResponse<ArticlesItem>> response) {
+                    assert response.body() != null;
                     titleArt.setText(response.body().getData().getTitle());
                     desc.setText(response.body().getData().getDescription());
                     articlesItem.setImageUrl(response.body().getData().getImageUrl());
@@ -162,7 +166,7 @@ public class FormArticleActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<BaseResponse<ArticlesItem>> call, Throwable t) {
+                public void onFailure(@NonNull Call<BaseResponse<ArticlesItem>> call, @NonNull Throwable t) {
 
                 }
             });
