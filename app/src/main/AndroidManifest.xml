@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".uis.FormArticleActivity"
+            android:exported="false" />
+        <activity
             android:name=".uis.ArticleDetailActivity"
             android:exported="false" />
         <activity

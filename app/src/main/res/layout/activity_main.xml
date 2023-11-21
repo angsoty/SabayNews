@@ -6,10 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-   <androidx.recyclerview.widget.RecyclerView
-       android:id="@+id/recylerViewCategory"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
-    <include layout="@layout/progress_bar_layout" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:backgroundTint="@color/colorprimary"
+        app:layout_anchor="@+id/swipeRefreshLayout"
+        app:layout_anchorGravity="end|bottom"
+        app:srcCompat="@drawable/baseline_format_list_bulleted_24" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextSizeCheck">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recylerViewCategory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_anchorGravity="center">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <include layout="@layout/progress_bar_layout" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -17,7 +17,7 @@ public class ArticlesItem{
 	private String title;
 
 	@SerializedName("category")
-	private Object category;
+	private CategoriesItem category;
 
 	@SerializedName("status")
 	private String status;
@@ -54,11 +54,11 @@ public class ArticlesItem{
 		return title;
 	}
 
-	public void setCategory(Object category){
+	public void setCategory(CategoriesItem category){
 		this.category = category;
 	}
 
-	public Object getCategory(){
+	public CategoriesItem getCategory(){
 		return category;
 	}
 

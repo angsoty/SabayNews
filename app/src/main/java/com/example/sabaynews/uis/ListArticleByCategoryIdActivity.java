@@ -1,5 +1,6 @@
 package com.example.sabaynews.uis;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,27 +26,20 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ListArticleByCategoryIdActivity extends AppCompatActivity {
-    private TextView title;
-    private APIInterface apiInterface;
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private ArticleAdapter articleAdapter;
-    private ImageView arrowBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_article_by_category_id);
-        title = findViewById(R.id.title);
+        TextView title = findViewById(R.id.title);
         progressBar = findViewById(R.id.progressBar);
         recyclerView = findViewById(R.id.recycleViewArticle);
-        arrowBack = findViewById(R.id.ivBack);
-        arrowBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-        apiInterface = APIClient.getClient().create(APIInterface.class);
+        ImageView arrowBack = findViewById(R.id.ivBack);
+        arrowBack.setOnClickListener(v -> onBackPressed());
+        APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
         Intent intent = getIntent();
         int id = intent.getIntExtra("ID",0);
         String name = intent.getStringExtra("NAME");
@@ -54,8 +48,9 @@ public class ListArticleByCategoryIdActivity extends AppCompatActivity {
         try {
             apiInterface.getAllArticleByCategoryId(id).enqueue(new Callback<BaseResponse<List<ArticlesItem>>>() {
                 @Override
-                public void onResponse(Call<BaseResponse<List<ArticlesItem>>> call, Response<BaseResponse<List<ArticlesItem>>> response) {
+                public void onResponse(@NonNull Call<BaseResponse<List<ArticlesItem>>> call, @NonNull Response<BaseResponse<List<ArticlesItem>>> response) {
                     progressBar.setVisibility(View.GONE);
+                    assert response.body() != null;
                     articleAdapter= new ArticleAdapter(response.body().getData(),ListArticleByCategoryIdActivity.this,"LIST");
                     GridLayoutManager gridLayoutManager = new GridLayoutManager(ListArticleByCategoryIdActivity.this,1);
                     recyclerView.setLayoutManager(gridLayoutManager);
@@ -63,7 +58,7 @@ public class ListArticleByCategoryIdActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<BaseResponse<List<ArticlesItem>>> call, Throwable t) {
+                public void onFailure(@NonNull Call<BaseResponse<List<ArticlesItem>>> call, @NonNull Throwable t) {
                     progressBar.setVisibility(View.GONE);
                 }
             });

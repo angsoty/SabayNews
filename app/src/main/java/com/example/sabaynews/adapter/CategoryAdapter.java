@@ -1,5 +1,6 @@
 package com.example.sabaynews.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -18,8 +19,8 @@ import com.example.sabaynews.uis.ListArticleByCategoryIdActivity;
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>{
-    private List<CategoriesItem> categoriesItems;
-    private Context context;
+    private final List<CategoriesItem> categoriesItems;
+    private final Context context;
 
 
     public CategoryAdapter(List<CategoriesItem> categoriesItems, Context context) {
@@ -27,6 +28,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         this.context = context;
     }
 
+    @SuppressLint("InflateParams")
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -47,15 +49,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         {
             holder.name.setText(item.getName());
         }
-        holder.more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, ListArticleByCategoryIdActivity.class);
-                intent.putExtra("ID",item.getId());
-                intent.putExtra("Name",item.getName());
-                context.startActivity(intent);
+        holder.more.setOnClickListener(view -> {
+            Intent intent = new Intent(context, ListArticleByCategoryIdActivity.class);
+            intent.putExtra("ID",item.getId());
+            intent.putExtra("Name",item.getName());
+            context.startActivity(intent);
 
-            }
         });
     }
 
@@ -65,8 +64,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     }
 
     public static class CategoryViewHolder extends RecyclerView.ViewHolder{
-        private TextView name,more;
-        private RecyclerView recyclerView;
+        private final TextView name;
+        private final TextView more;
+        private final RecyclerView recyclerView;
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.txtCategoryName);
