@@ -16,9 +16,13 @@ import com.example.sabaynews.Interface.APIInterface;
 import com.example.sabaynews.adapter.CategoryAdapter;
 import com.example.sabaynews.app.BaseActivity;
 import com.example.sabaynews.data.local.UserSharePreference;
+import com.example.sabaynews.models.BaseResponse;
+import com.example.sabaynews.models.Category;
 import com.example.sabaynews.models.HomeResponse;
 import com.example.sabaynews.uis.FormArticleActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,12 +33,32 @@ public class MainActivity extends BaseActivity {
     private CategoryAdapter categoryAdapter;
     private ProgressBar progressBar;
     private SwipeRefreshLayout swipeRefreshLayout;
+    APIInterface apiInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        apiInterface.getAllCategory("Bearer"+UserSharePreference.getAccessToken(this)).enqueue(new Callback<BaseResponse<List<Category>>>() {
+            @Override
+            public void onResponse(@NonNull Call<BaseResponse<List<Category>>> call, @NonNull Response<BaseResponse<List<Category>>> response) {
+                if (response.isSuccessful())
+                {
+                    assert response.body() != null;
+                    showMessage(response.body().getData().toString());
+                }
+                else
+                {
+                    showMessage("No Authentication");
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<BaseResponse<List<Category>>> call, @NonNull Throwable t) {
+                showMessage("No Authentication"+t.getLocalizedMessage());
+            }
+        });
     }
     private void initView(){
         ImageView logout = findViewById(R.id.ivlogout);

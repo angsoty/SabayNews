@@ -3,6 +3,7 @@ package com.example.sabaynews.Interface;
 import com.example.sabaynews.models.ArticlesItem;
 import com.example.sabaynews.models.BaseResponse;
 import com.example.sabaynews.models.CategoriesItem;
+import com.example.sabaynews.models.Category;
 import com.example.sabaynews.models.HomeResponse;
 import com.example.sabaynews.models.LoginRequest;
 import com.example.sabaynews.models.LoginResponse;
@@ -12,6 +13,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -30,6 +32,9 @@ public interface APIInterface {
     Call<BaseResponse<String>> updateArticle(@Body ArticlesItem req);
     @POST("/StockServerApi/api/oauth/token")
     Call<LoginResponse> login(@Body LoginRequest req);
+    @GET("api/app/category/list")
+    @Header({"Authorization","Bearer"+accessToken})
+    Call<BaseResponse<List<Category>>> getAllCategory(@Header("Authorization") String accessToken);
 
 
 }

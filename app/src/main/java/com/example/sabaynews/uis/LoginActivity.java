@@ -29,6 +29,8 @@ public class LoginActivity extends AppCompatActivity {
         TextView create = findViewById(R.id.btnLogin);
         username= findViewById(R.id.username);
         password= findViewById(R.id.password);
+        password.setText("123456");
+        username.setText("0962505045");
         apiInterface = APIClient.getClient().create(APIInterface.class);
         create.setOnClickListener(v -> {
             if (username.getText().toString().equals(""))

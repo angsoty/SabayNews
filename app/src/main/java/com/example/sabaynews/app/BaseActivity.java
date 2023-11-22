@@ -1,6 +1,7 @@
 package com.example.sabaynews.app;
 
 import android.content.Intent;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,5 +16,9 @@ public class BaseActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
+    }
+    public void showMessage(String message){
+        Toast.makeText(this,message,Toast.LENGTH_LONG).show();
+
     }
 }
