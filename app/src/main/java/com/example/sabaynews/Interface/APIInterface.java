@@ -33,7 +33,6 @@ public interface APIInterface {
     @POST("/StockServerApi/api/oauth/token")
     Call<LoginResponse> login(@Body LoginRequest req);
     @GET("api/app/category/list")
-    @Header({"Authorization","Bearer"+accessToken})
     Call<BaseResponse<List<Category>>> getAllCategory(@Header("Authorization") String accessToken);
 
 
